@@ -37,6 +37,8 @@ FLUSH privileges;
 
 ## Step 2 - Run the container ##
 
+The image is stored in the Docker Hub at: [https://hub.docker.com/r/antoonline/invoiceninja-4.5.34](https://hub.docker.com/r/antoonline/invoiceninja-4.5.34).
+
 You can use the following docker-compose.yml example to run your container:
 
 ````

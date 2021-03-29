@@ -12,13 +12,6 @@ Please read through all the steps to see if this build will suit you. One error 
 
 The container runs on port 80 internally; also, you will be required to mount the /var/www locally.
 
-Also, it is pre-installed with CRON and uses the following schedule to send reminders and invoices as 8pm:
-
-````
-0 8 * * * /usr/local/bin/php /var/www/artisan ninja:send-reminders > /dev/null
-0 8 * * * /usr/local/bin/php /var/www/artisan ninja:send-invoices > /dev/null
-````
-
 # Install Process #
 
 ## Step 1 - Create the Database ##
@@ -46,6 +39,7 @@ version: '2'
 
 services:
   app:
+    container_name: invoiceninja_app
     image: 'antoonline/invoiceninja-4.5.34:latest'
     ports:
       - '8888:80'
@@ -77,6 +71,17 @@ Now simply fill out the details and let Invoice Ninja create your /var/www/.env 
 ## Step 4 - Login to Invoice Ninja ##
 
 Ignore the error in the previous step and navigate your browser to: ````http://127.0.0.1:8888/login````.
+
+## Step 5 - Setup Background Jobs
+
+You can enable Invoice Ninja to send invoices and reminders. Note that this will require you to setup email sending.
+
+Simply add the following on your Docker host:
+
+````
+0 8 * * *        /usr/bin/docker exec --user www-data invoiceninja_app /usr/local/bin/php /var/www/artisan ninja:send-reminders
+0 8 * * *        /usr/bin/docker exec --user www-data invoiceninja_app /usr/local/bin/php /var/www/artisan ninja:send-invoices
+````
 
 # Additional Info # 
 

@@ -1,3 +1,3 @@
-sudo docker build -t antoonline/invoiceninja-4.5.34 .
+sudo docker build -t antoonline/invoiceninja-4.5.34 . --no-cache
 sudo docker push antoonline/invoiceninja-4.5.34:latest
 sudo docker run -it antoonline/invoiceninja-4.5.34:latest bash
